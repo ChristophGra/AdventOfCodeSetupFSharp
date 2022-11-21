@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework> 
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <None Include="Tools\cookie.txt" />
+        <Compile Include="Tools\HelperMethods.fs" />
+        <Compile Include="Tools\InputFetcher.fs" />
+        <Compile Include="Tools\TaskFetcher.fs" />
+        <Compile Include="Tools\RefetchTask.fs" />
+        <Compile Include="Tools\CleanUp.fs" />
+        <Compile Include="Tools\CompleteSetup.fs" />
+        <Compile Include="Tools\RunSetup.fs" />
+        <Folder Include="Tools\static\style" />
+    </ItemGroup>
+
+</Project>
