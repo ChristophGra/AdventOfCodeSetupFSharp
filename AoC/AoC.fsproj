@@ -15,7 +15,8 @@
         <Compile Include="Tools\CleanUp.fs" />
         <Compile Include="Tools\CompleteSetup.fs" />
         <Compile Include="Tools\RunSetup.fs" />
-        <Folder Include="Tools\static\style" />
+        <Folder Include="AoC????" /> 
+        <None Include="AoC????\**\*.*" />
     </ItemGroup>
 
 </Project>
