@@ -3,4 +3,6 @@ AoC/bin
 AoC/obj
 *.css
 cookie.txt
+#excluding the AoC day folders, so they can be generated in advance.
+#force adding to prepare them to be pushed.
 AoC20*
