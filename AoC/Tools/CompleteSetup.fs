@@ -46,9 +46,13 @@ let setupFolders cookie =
             if not (Directory.Exists $"""AoC/AoC{year}/day{dayString}""") then
                 Directory.CreateDirectory($"""AoC/AoC{year}/day{dayString}""") |> ignore
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part1.fsx""") then
-                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part1.fsx""","")
+                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part1.fsx""",$"""open System.IO
+let input =
+  File.ReadAllText @"C:\Users\Chris\Documents\AoC\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part2.fsx""") then
-                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""","")
+                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""",$"""Open System.IO
+                                  let input =
+                                    File.ReadAllText @"C:\Users\Chris\Documents\AoC\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/Task.html""" ) then
                 if req $"https://adventofcode.com/{year}/day/{day}" $"""AoC/AoC{year}/day{dayString}/Task.html""" (rewriteStylesheetToLocal cookie) then
                     exit(1) |> ignore
