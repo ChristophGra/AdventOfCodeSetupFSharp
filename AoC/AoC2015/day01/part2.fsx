@@ -1,7 +1,7 @@
 open System.IO
 
 let input =
-    (File.ReadAllText "C:\Users\Chris\Documents\AoC\AoC\AoC2015\day01\Input.txt").ToCharArray()
+    (File.ReadAllText "AoCAoC2015day01Input.txt").ToCharArray()
 
 let floor =
     Array.scan (fun (floor,count) x -> match x with '(' -> floor + 1, count + 1 | ')' -> floor - 1, count + 1) (0,0) input

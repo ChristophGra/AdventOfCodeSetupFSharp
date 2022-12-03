@@ -9,20 +9,20 @@ type strategy = {
 }
 let scoreHand (matchup: strategy) =
     let RoundScore oppo strategy =
-        match  strategy, oppo with
-        | Lose, _ -> 
+        match  strategy with
+        | Lose-> 
             0 + 
             match oppo with
             | Rock -> 3
             | Paper -> 1
             | Scissors -> 2 
-        | Draw, _ -> 
+        | Draw-> 
             3 + 
             match oppo with
             | Rock -> 1
             | Paper -> 2
             | Scissors -> 3 
-        | Win, _ -> 
+        | Win -> 
             6 + 
             match oppo with
             | Rock -> 2

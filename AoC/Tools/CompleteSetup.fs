@@ -13,7 +13,7 @@ let Request cookie (url:string) filePath (rewriter:string -> string) =
     if response.StatusCode = HttpStatusCode.OK then
         let reader = new StreamReader(response.GetResponseStream())
         let text = reader.ReadToEnd() |> rewriter
-        File.WriteAllText(filePath, text)
+        File.WriteAllText(filePath, text.Trim())
         reader.Close()
         false
     else
@@ -48,11 +48,11 @@ let setupFolders cookie =
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part1.fsx""") then
                 File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part1.fsx""",$"""open System.IO
 let input =
-  File.ReadAllText @"C:\Users\Chris\Documents\AoC\AoC\AoC{year}\day{dayString}\Input.txt" """)
+  File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part2.fsx""") then
                 File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""",$"""Open System.IO
                                   let input =
-                                    File.ReadAllText @"C:\Users\Chris\Documents\AoC\AoC\AoC{year}\day{dayString}\Input.txt" """)
+                                    File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/Task.html""" ) then
                 if req $"https://adventofcode.com/{year}/day/{day}" $"""AoC/AoC{year}/day{dayString}/Task.html""" (rewriteStylesheetToLocal cookie) then
                     exit(1) |> ignore
