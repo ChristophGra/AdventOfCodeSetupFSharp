@@ -2,17 +2,32 @@
 open System
 open System.IO
 open System.Net
+open System.Net.Http
+open System.Net.Http.Headers
+open System.Text
 open System.Text.RegularExpressions
 open System.Threading
 
-
+        
 let Request cookie (url:string) filePath (rewriter:string -> string) =
-    let request = HttpWebRequest.Create(url)
-    request.Headers.Add("cookie:session=" + cookie)
-    let response = (request.GetResponse() :?> HttpWebResponse)
+    let request = new HttpClient()
+    request.BaseAddress <- Uri(url)
+    request.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent","""https://github.com/ChristophGra/AdventOfCodeSetupFSharp""") |> ignore
+    request.DefaultRequestHeaders.TryAddWithoutValidation("cookie","session=" + cookie) |> ignore
+    let response = request.Send(new HttpRequestMessage())
     if response.StatusCode = HttpStatusCode.OK then
-        let reader = new StreamReader(response.GetResponseStream())
-        let text = reader.ReadToEnd() |> rewriter
+        let buffer = Array.init 1024 (fun _ -> 0uy)
+        let reader = response.Content.ReadAsStream()
+        let mutable count = 0
+        let builder = new StringBuilder()
+        reader.Position <- 0
+        while (reader.Position < reader.Length) do
+            count <- reader.Read buffer
+            //Console.WriteLine (Encoding.UTF8.GetString(buffer))
+            builder.Append (Encoding.UTF8.GetString(buffer,0,count))
+            |> ignore
+        let text = builder.ToString()
+        Console.WriteLine (text.Substring(text.Length - 50))
         File.WriteAllText(filePath, text.Trim())
         reader.Close()
         false
