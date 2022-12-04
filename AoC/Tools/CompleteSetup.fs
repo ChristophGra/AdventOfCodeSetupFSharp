@@ -23,11 +23,9 @@ let Request cookie (url:string) filePath (rewriter:string -> string) =
         reader.Position <- 0
         while (reader.Position < reader.Length) do
             count <- reader.Read buffer
-            //Console.WriteLine (Encoding.UTF8.GetString(buffer))
             builder.Append (Encoding.UTF8.GetString(buffer,0,count))
             |> ignore
         let text = builder.ToString()
-        Console.WriteLine (text.Substring(text.Length - 50))
         File.WriteAllText(filePath, text.Trim())
         reader.Close()
         false
@@ -66,8 +64,8 @@ let input =
   File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part2.fsx""") then
                 File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""",$"""Open System.IO
-                                  let input =
-                                    File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
+let input =
+  File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/Task.html""" ) then
                 if req $"https://adventofcode.com/{year}/day/{day}" $"""AoC/AoC{year}/day{dayString}/Task.html""" (rewriteStylesheetToLocal cookie) then
                     exit(1) |> ignore
