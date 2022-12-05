@@ -63,7 +63,7 @@ let setupFolders cookie =
 let input =
   File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/part2.fsx""") then
-                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""",$"""Open System.IO
+                File.WriteAllText($"""AoC/AoC{year}/day{dayString}/part2.fsx""",$"""open System.IO
 let input =
   File.ReadAllText @"\AoC\AoC{year}\day{dayString}\Input.txt" """)
             if not (File.Exists $"""AoC/AoC{year}/day{dayString}/Task.html""" ) then
