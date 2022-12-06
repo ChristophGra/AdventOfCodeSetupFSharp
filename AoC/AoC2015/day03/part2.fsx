@@ -18,7 +18,7 @@ let updateDict (dict: Set<int * int>) newx newy =
 let initialState  =
     Set.empty  |> fun x -> updateDict x 0 0 , (0,0), (0,0)
     
-let updatePosition (dict,pos1,(pos2: int * int)) move =
+let updatePosition (dict,pos1,pos2: int * int) move =
     let newpos = fst pos1 + fst move, snd pos1 + snd move
     updateDict dict (fst newpos) (snd newpos), pos2, newpos
 let input =

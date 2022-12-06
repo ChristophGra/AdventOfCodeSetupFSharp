@@ -1,8 +1,8 @@
 open System.IO
 let calculateSize (sides: int []) =
-    let s = sides.[0]
-    let m = sides.[1]
-    let l = sides.[2]
+    let s = sides[0]
+    let m = sides[1]
+    let l = sides[2]
     s * m * 3 + s * l * 2 + m * l * 2
 let input =
     File.ReadAllText "AoCAoC2015day02Input.txt"

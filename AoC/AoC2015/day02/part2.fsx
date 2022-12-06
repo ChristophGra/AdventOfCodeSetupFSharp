@@ -1,8 +1,8 @@
 open System.IO
 let calculateSize (sides: int []) =
-    let s = sides.[0]
-    let m = sides.[1]
-    let l = sides.[2]
+    let s = sides[0]
+    let m = sides[1]
+    let l = sides[2]
     2 * s + 2 * m + s * m * l
     
 

@@ -29,6 +29,6 @@ let parseHand (opponent, own) =
      }
 let input =
   (File.ReadAllText @"AoC\AoC2022\day02\Input.txt").Replace("\r\n", "\n").Split("\n")
-  |> Array.choose (fun x -> x.Split(" ") |> fun y -> (if (y.Length > 1) then Some (y.[0].Chars 0,y.[1].Chars 0) else None))
+  |> Array.choose (fun x -> x.Split(" ") |> fun y -> (if (y.Length > 1) then Some (y[0].Chars 0,y[1].Chars 0) else None))
   |> Array.map (parseHand >> scoreHand)
   |> Array.sum
