@@ -35,7 +35,6 @@ let parseMoves (moves:string) =
 let rec doOneMove (stack: char list array) (count, from, ``to``) =
     stack[``to``] <- List.append (List.take (Math.Min (count, (List.length stack[from]))) stack[from] |> List.rev) stack[``to``]
     stack[from ] <- List.skip (Math.Min (count, (List.length stack[from]))) stack[from]
-    stack
     
 let initialStacks,moves =
   (File.ReadAllText @"AoC\AoC2022\day05\Input.txt").Replace("\r\n","\n").Split("\n\n")
@@ -43,7 +42,8 @@ let initialStacks,moves =
   
     
 let finaStack =
-    Array.fold (fun state x -> doOneMove state x) initialStacks moves
+    Array.iter (fun x -> doOneMove initialStacks x)  moves
+    initialStacks
     |> Array.map List.tryHead
     |> Array.choose id
     |> String
