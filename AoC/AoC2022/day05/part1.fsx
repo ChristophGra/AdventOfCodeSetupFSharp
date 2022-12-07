@@ -1,16 +1,6 @@
 open System
 open System.IO
 
-
-let testInput ="""    [D]    
-[N] [C]    
-[Z] [M] [P]
- 1   2   3 
-
-move 1 from 2 to 1
-move 3 from 1 to 3
-move 2 from 2 to 1
-move 1 from 1 to 2"""
 let stacks (): char list array =
     [|list.Empty;list.Empty;list.Empty;list.Empty;list.Empty;list.Empty;list.Empty;list.Empty;list.Empty|]
 
@@ -18,15 +8,16 @@ let stacks (): char list array =
 let updateStack (stack:char list array) (letter, location) =
     if letter <> ' ' then 
         stack[location] <- letter :: stack[location]
-    stack
 
     
 let parseStacks (stacksString:string) =
+    let stack = stacks()
     stacksString.Split("\n")
     |> Array.map (fun y -> Array.mapi (fun i x -> if ((i - 1) % 4) = 0 then Some (x,(i - 1) / 4)  else None) (y.ToCharArray()) |> Array.choose id)
     |> Array.rev
     |> Array.tail
-    |> Array.fold (fun (state: char list array) (x:(char * int)[] ) -> Array.fold updateStack state x) (stacks())
+    |> Array.iter (fun  (x:(char * int)[] ) -> Array.iter (updateStack stack) x )
+    stack
 let parseMoves (moves:string) =
     moves.Split("\n")
     |> Array.map (fun x -> x.Split(" from ") |> fun y ->  (y[1].Split(" to ") |> fun z -> int (y[0].Replace("move ","")),int z[0] - 1, int z[1] - 1))
