@@ -11,9 +11,17 @@ let updateStack (stack:char list array) (letter, location) =
 
     
 let parseStacks (stacksString:string) =
+    let makeCharArrayWithEmbeddedIndices (str:string) =
+        let extractLetter index character =
+            if ((index - 1) % 4) = 0 then
+                Some (character,(index - 1) / 4)
+            else None
+        Array.mapi extractLetter (str.ToCharArray())
+        |> Array.choose id
+        
     let stack = stacks()
     stacksString.Split("\n")
-    |> Array.map (fun y -> Array.mapi (fun i x -> if ((i - 1) % 4) = 0 then Some (x,(i - 1) / 4)  else None) (y.ToCharArray()) |> Array.choose id)
+    |> Array.map makeCharArrayWithEmbeddedIndices
     |> Array.rev
     |> Array.tail
     |> Array.iter (fun  (x:(char * int)[] ) -> Array.iter (updateStack stack) x )

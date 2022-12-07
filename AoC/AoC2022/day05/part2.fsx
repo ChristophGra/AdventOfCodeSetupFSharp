@@ -8,18 +8,33 @@ let stacks (): char list array =
 let updateStack (stack:char list array) (letter, location) =
     if letter <> ' ' then 
         stack[location] <- letter :: stack[location]
-    stack
 
     
 let parseStacks (stacksString:string) =
+    let makeCharArrayWithEmbeddedIndices (str:string) =
+        let extractLetter index character =
+            if ((index - 1) % 4) = 0 then
+                Some (character,(index - 1) / 4)
+            else None
+        Array.mapi extractLetter (str.ToCharArray())
+        |> Array.choose id
+        
+    let stack = stacks()
     stacksString.Split("\n")
-    |> Array.map (fun y -> Array.mapi (fun i x -> if ((i - 1) % 4) = 0 then Some (x,(i - 1) / 4)  else None) (y.ToCharArray()) |> Array.choose id)
+    |> Array.map makeCharArrayWithEmbeddedIndices
     |> Array.rev
     |> Array.tail
-    |> Array.fold (fun (state: char list array) (x:(char * int)[] ) -> Array.fold updateStack state x) (stacks())
+    |> Array.iter (fun  (x:(char * int)[] ) -> Array.iter (updateStack stack) x )
+    stack
+    
 let parseMoves (moves:string) =
+    let extractInstructions (str:string) =
+        let move,from = str.Split(" from ") |> fun from -> from[0],from[1]
+        let slotFrom,slotTo = from.Split(" to ") |> fun slots -> int slots[0], int slots[1]
+        let amountToMove = int (move.Replace("move ",""))
+        amountToMove,slotFrom - 1, slotTo - 1
     moves.Split("\n")
-    |> Array.map (fun x -> x.Split(" from ") |> fun y ->  (y[1].Split(" to ") |> fun z -> int (y[0].Replace("move ","")),int z[0] - 1, int z[1] - 1))
+    |> Array.map extractInstructions
     
 
 let rec doOneMove (stack: char list array) (count, from, ``to``) =

@@ -7,7 +7,7 @@ let calculateSize (sides: int []) =
     
 
 let input =
-    File.ReadAllText "AoCAoC2015day02Input.txt"
+    File.ReadAllText "AoC\AoC2015\day02\Input.txt"
     |> fun x -> x.Replace("\r\n", "\n").Split "\n"
     |> Array.map (fun (x:string) -> x.Split("x") |> Array.choose (fun y -> match System.Int32.TryParse y with true, i -> Some i | false, _ -> None) |> Array.sort)
     |> Array.where (fun x -> Array.length x = 3)

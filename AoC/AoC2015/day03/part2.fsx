@@ -22,7 +22,7 @@ let updatePosition (dict,pos1,pos2: int * int) move =
     let newpos = fst pos1 + fst move, snd pos1 + snd move
     updateDict dict (fst newpos) (snd newpos), pos2, newpos
 let input =
-    File.ReadAllText @"AoCAoC2015day03Input.txt"
+    File.ReadAllText @"AoC\AoC2015\day03\Input.txt"
     |> fun x -> x.ToCharArray()
     |> Array.map mapDirection
     |> Array.fold updatePosition initialState

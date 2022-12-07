@@ -53,7 +53,6 @@ let input =
   (File.ReadAllLines @"AoC\AoC2022\day07\Input.txt")
   
   
-
 let rec getFolders currentFolder = seq {
     yield currentFolder
     yield! Seq.collect getFolders currentFolder.SubFolders
