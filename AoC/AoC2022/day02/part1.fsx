@@ -1,4 +1,3 @@
-open System.ComponentModel
 open System.IO
 
 type Hand = |Rock|Paper|Scissors

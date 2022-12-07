@@ -23,8 +23,8 @@ let parseMoves (moves:string) =
     
 
 let rec doOneMove (stack: char list array) (count, from, ``to``) =
-    stack[``to``] <- List.append  (List.take (Math.Min(count, List.length stack.[from])) stack[from]) stack[``to``]
-    stack[from ] <-  List.skip (Math.Min(count, List.length stack.[from])) stack[from] 
+    stack[``to``] <- List.append  (List.take (Math.Min(count, List.length stack[from])) stack[from]) stack[``to``]
+    stack[from ] <-  List.skip (Math.Min(count, List.length stack[from])) stack[from] 
     
     
 let initialStacks,moves =

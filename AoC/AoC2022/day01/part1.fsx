@@ -1,6 +1,5 @@
 open System.IO
 open Microsoft.FSharp.Core
-open Microsoft.VisualBasic.CompilerServices
 
 let input =
     File.ReadAllText "AoC/AoC2022/day01/Input.txt"
