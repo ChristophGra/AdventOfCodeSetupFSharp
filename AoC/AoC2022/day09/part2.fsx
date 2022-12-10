@@ -40,15 +40,6 @@ let getTailPositions positions =
   Array.scan folder (0,0) positions
   
 
-headPositions input
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
-|> getTailPositions
+Array.fold (fun x _ -> getTailPositions x) (headPositions input) [|0..8|]
 |> Array.distinct
 |> Array.length
