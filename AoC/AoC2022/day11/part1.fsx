@@ -5,31 +5,24 @@ let input =
   (File.ReadAllText @"AoC\AoC2022\day11\Input.txt").Split("\n\n")
   
 let testInput =
-  """Monkey 1:
-  Starting items: 54, 65, 75, 74
-  Operation: new = old + 6
-  Test: divisible by 19
+  """Monkey 0:
+  Starting items: 1
+  Operation: new = old * old
+  Test: divisible by 2
+    If true: throw to monkey 1
+    If false: throw to monkey 2
+
+Monkey 1:
+  Starting items: 2, 3, 5
+  Operation: new = old * 2
+  Test: divisible by 3
     If true: throw to monkey 2
     If false: throw to monkey 0
 
-Monkey 0:
-  Starting items: 79, 98
-  Operation: new = old * 19
-  Test: divisible by 23
-    If true: throw to monkey 2
-    If false: throw to monkey 3
-
 Monkey 2:
-  Starting items: 79, 60, 97
-  Operation: new = old * old
-  Test: divisible by 13
-    If true: throw to monkey 1
-    If false: throw to monkey 3
-
-Monkey 3:
-  Starting items: 74
-  Operation: new = old + 3
-  Test: divisible by 17
+  Starting items: 99, 69
+  Operation: new = old + old
+  Test: divisible by 5
     If true: throw to monkey 0
     If false: throw to monkey 1""".Split("\n\n")
     
@@ -80,7 +73,7 @@ let parseInput (str:string []) =
   |> Array.sortBy (fun x -> x.Id)
 
 
-let ms = parseInput input
+
 
 let doRound (monkeys:monkey[]) =
   let moveItem from ``to`` worryLevel =
@@ -97,7 +90,7 @@ let doRound (monkeys:monkey[]) =
   Array.iter doMonkey monkeys
   monkeys
   
-  
+let ms = parseInput testInput  
 Array.fold (fun _ _ -> doRound ms) ms [|1..20|]
 |> Array.map (fun x -> x.inspections)
 |> Array.sortDescending
