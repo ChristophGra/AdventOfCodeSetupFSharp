@@ -28,14 +28,14 @@ let testInput =
 [1,[2,[3,[4,[5,6,7]]]],8,9]
 [1,[2,[3,[4,[5,6,0]]]],8,9]"""
 
+
+    
+let input =
+  (File.ReadAllText @"AoC\AoC2022\day13\Input.txt")
 type arr =
     | Value of int
     | Arr of arr List
     | Empty
-    
-let input =
-  (File.ReadAllText @"AoC\AoC2022\day13\Input.txt")
-  
 let parsedInput  =
     let rec parseInput inp: arr list *( char list)=
         match inp with
@@ -93,7 +93,7 @@ let divider2 = Arr [Arr [Value 6]]
 let sorted =
     parsedInput
     |> Array.append [|divider1;divider2|]
-    |> Array.sortWith (fun a b -> compareElems a b|> fun x -> match x with | Ok -> -1 | _ ->  1)
+    |> Array.sortWith (fun a b -> compareElems a b|> fun x -> match x with | Ok -> -1 | Equal -> 0 | Wrong ->  1)
 
 let index1 =
     Array.indexed sorted
